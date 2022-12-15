@@ -1,4 +1,4 @@
-import { IBeerItemValue } from '../constants/interfaces';
+import { IBeerItemValue } from '../data-structures/interfaces';
 
 export default function(itemId: number,itemList:IBeerItemValue[]): string {
     let itemIndex = "";    

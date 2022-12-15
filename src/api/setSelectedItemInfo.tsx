@@ -1,4 +1,4 @@
-import { IFilterValue } from '../constants/interfaces';
+import { IFilterValue } from '../data-structures/interfaces';
 
 const setSelectedItemInfo = (itemId: number,posY: number,selectedPageFilter:IFilterValue,selectedPageURL:string): void => {
     

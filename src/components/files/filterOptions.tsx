@@ -1,4 +1,4 @@
-import { IFilterOptionValue } from "./interfaces";
+import { IFilterOptionValue } from "../../data-structures/interfaces";
 
 const brewedAfter:IFilterOptionValue[] = [
     {

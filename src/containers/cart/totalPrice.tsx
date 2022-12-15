@@ -1,4 +1,4 @@
-import { ICartBeerItemValue } from '../../constants/interfaces';
+import { ICartBeerItemValue } from '../../data-structures/interfaces';
 
 export default function(cartItems: ICartBeerItemValue[]) {
     let total = 0;

@@ -1,129 +1,83 @@
 import React from 'react'
-import '../../styles/display.css'
-import '../../styles/filter.css'
-import { useState, useEffect, useRef, useContext } from "react";
-import getItemsByUrl from '../../helpers/getItemsByUrl';
-import DisplayShop from './DisplayShop';
-import DisplayPagination from "./DisplayPagination";
-import CreateFilter from './CreateFilter'
-import { useNavigate, useParams } from 'react-router-dom';
-import checkPageUrlExists from './checkPageUrlExists';
-import checkDefaultFilter from './checkDefaultFilter'
-import { IFilterValue, IBeerItemValue } from '../../constants/interfaces'
-import { filterKeyContext } from '../../app/App';
+import { useParams } from 'react-router-dom';
+import setSelectedItemInfo from '../../api/setSelectedItemInfo'
+import selectItem from '../../helpers/selectItem';
+import { useNavigate } from 'react-router-dom';
+import { IBeerItemValue } from '../../data-structures/interfaces';
 
 interface IComponentValue {
-    beerType: {
-        path: string,
-        page: number,
-        currantPage: number,
-    },
-    displayFilterButton: Function,
-    filterStyle: string
+    filterRef: any,
+    perPageItemsList: IBeerItemValue[]
 }
 
-const Shop = ({beerType,displayFilterButton,filterStyle}: IComponentValue) => {
-
-    const pageURL = useNavigate()
-    const currantPageParams = useParams()
-    const [currantPage,setCurrantPage] = useState(Number)
-    useEffect(() => {
-        setCurrantPage(Number(currantPageParams.selectedPage))
-    },[currantPageParams]);
+export default function({filterRef,perPageItemsList}: IComponentValue) {
    
-    const filterKey = useContext(filterKeyContext)
-    const [defaultFilter,setDefaultFilter] = useState(checkDefaultFilter());
-    
-    useEffect(() => {
-        debugger;
-        setDefaultFilter(checkDefaultFilter())
-    },[filterKey])
-    const [brewedAfter,setBrewedAfter] = useState(`&brewed_after=${defaultFilter.brewedAfter}`);
-    useEffect(() => {
-        setBrewedAfter(`&brewed_after=${defaultFilter.brewedAfter}`)
-    },[filterKey])
-    const [brewedBefore,setBrewedBefore] = useState(`&brewed_before=${defaultFilter.brewedBefore}`);
-    useEffect(() => {
-        setBrewedBefore(`&brewed_before=${defaultFilter.brewedBefore}`)
-    },[filterKey])
-    const [searchValue,setSearchValue] = useState(defaultFilter.searchValue)
-    useEffect(() => {
-        setSearchValue(defaultFilter.searchValue)
-    },[filterKey])
-    const handleFilter = (brewedAfter: string,brewedBefore: string,searchValue: string): void => {
-        setBrewedAfter(`&brewed_after=${brewedAfter}`);
-        setBrewedBefore(`&brewed_before=${brewedBefore}`);
-        setSearchValue(searchValue.toLowerCase());
-        setCurrantPage(1);
-        pageURL(`${beerType.path}/page=${1}`);
-
+    const selectedItemsPageParams = useParams();
+    const selectedPageURL: any = Object.values(selectedItemsPageParams)[0]
+    const pagePath = useNavigate();
+    if (localStorage.selectedItemPosY) { 
+        window.scrollTo(0,Number(localStorage.selectedItemPosY) - 100);
     }
-    useEffect(() => {
-        displayFilterButton();
-    },)
-    const brewedAfterRef = useRef();
-    const brewedBeforeRef = useRef();
-    const searchRef = useRef();
-    const filterRef = {
-        brewedAfterRef: brewedAfterRef,
-        brewedBeforeRef:brewedBeforeRef,
-        searchRef:searchRef,
+    else {
+        window.scrollTo(0,300)
     }
 
-    const ItemsListType: IBeerItemValue[] = []
-
-    const [itemsList, setItemsList] = useState(ItemsListType);
-    const url = `https://api.punkapi.com/v2/beers?&page=${beerType.page}&per_page=60${brewedAfter}${brewedBefore}`;
-    useEffect(() => {
-        try {
-            getItemsByUrl(url).then(x => {
-                setItemsList(x)
-                })
-    
-        } catch (error) {
-            pageURL('/Connection_Error')
-            return
-        }
-    },[url])
-
-    useEffect(() => {
-        localStorage.setItem('homeBeerType',JSON.stringify(beerType))
-    },[beerType])
-
-    const filteredBySearchItemsList = itemsList.filter((item) => {
-        return item.name.toLowerCase().includes(searchValue)
-    })
-    const itemsAmountPerPage = 15;
-    const pagesAmount = Math.ceil(filteredBySearchItemsList.length / itemsAmountPerPage);
-    const start = (currantPage-1)*itemsAmountPerPage;
-    const end = start + itemsAmountPerPage;
-    const perPageItemsList = filteredBySearchItemsList.slice(start,end)
-    
-    const selectPage = (pageNumber: number) => {
-        setCurrantPage(pageNumber)
-        pageURL(`${beerType.path}/page=${pageNumber}`)
+    const select = (id: number) => {
+        selectItem(id,pagePath)
     }
-    
-    
-    checkPageUrlExists(currantPageParams);
-    
-    return (    
-        <>   
-            <CreateFilter filterRef={filterRef} handleFilter={handleFilter} defaultFilter={defaultFilter} filterStyle={filterStyle}/> 
-            <div id="display">
-                <DisplayShop filterRef={filterRef} perPageItemsList={perPageItemsList} />
-                <div id="pagination-bar">
-                    <div id="pagination-display-bar">
-                        <DisplayPagination 
-                        pagesAmount={pagesAmount}
-                        currantPage={currantPage}
-                        selectPage={selectPage}
-                        />
+
+    return (
+    <>
+        <div id = "items-display-bar">
+            {
+            perPageItemsList.map((item: IBeerItemValue) => {
+                let price;
+                try {
+                    price = `$${item.srm.toFixed(2)}`
+                } catch (error) {
+                    price = `$${item.srm}`
+                }
+                let itemBorderStyle = "";
+                if (Number(item.id) === Number(localStorage.selectedItemId)) {
+                    itemBorderStyle="2px solid black";
+                }
+                return (
+                    <div key={item.id} id={`item-${item.id}`} 
+                        className="item-element item-element-active" 
+                        style={{border: itemBorderStyle}} >
+                        <img className="item-element-image"
+                        src={item.image_url}
+                        alt="Sorry, no picture to show">
+                        </img>
+                        {/* <Link> */}
+                        <p className="item-element-view" onClick={(evt) => {
+                           select(item.id);
+                           let Y: any = document.getElementById(`item-${item.id}`)
+                           let posY = Y.offsetTop;
+                           let selectedPageFilter = {
+                                brewedAfter: filterRef.brewedAfterRef.current.value,
+                                brewedBefore: filterRef.brewedBeforeRef.current.value,
+                                searchValue: filterRef.searchRef.current.value
+                           }
+                           setSelectedItemInfo(item.id,posY,selectedPageFilter,selectedPageURL);
+                        }}>
+                        VIEW
+                        </p>
+                        {/* </Link> */}
+                        <p className="item-element-name">
+                            {item.name}
+                        </p>
+                        <p className="item-element-price">
+                            {price}   
+                        </p>
                     </div>
-                </div>
-            </div>
-        </>
-    )
+                )
+            })
+            }
+        </div>
+    </>
+
+  )
 }
 
-export default Shop
+

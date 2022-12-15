@@ -1,7 +1,7 @@
 import React from 'react'
 import cleanGoBackStorage from '../../helpers/cleanGoBackStorage';
 
-const Home = () => {
+const HomePage = () => {
 
   cleanGoBackStorage();
 
@@ -11,4 +11,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default HomePage;

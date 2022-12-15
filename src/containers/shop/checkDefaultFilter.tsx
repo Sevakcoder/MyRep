@@ -1,5 +1,5 @@
-import defaultFilter  from "../../constants/defaultFilter";
-import { IFilterValue } from '../../constants/interfaces';
+import defaultFilter from "../../components/files/defaultFilter";
+import { IFilterValue } from '../../data-structures/interfaces';
 
 export default function(): IFilterValue {
     if (localStorage.selectedPageFilter) {

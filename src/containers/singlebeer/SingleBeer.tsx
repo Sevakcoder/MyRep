@@ -1,60 +1,65 @@
 import React from 'react'
-import '../../styles/select.css';
-import { useState, useEffect } from "react";
-import getItemsByUrl from "../../helpers/getItemsByUrl";
-import { useNavigate, useParams } from 'react-router-dom';
-import DisplaySimilars from './DisplaySimilars';
-import DisplaySingleItem from './DisplaySingleItem';
-import DisplayBackButton from './DisplayBackButton';
-import { IBeerItemValue } from '../../constants/interfaces';
+import { useState } from "react";
+import addToCart from '../../helpers/addToCart'
+import getNumberOfProuductsInCart from '../../helpers/getNumberOfProuductsInCart';
+import { IBeerItemValue } from '../../data-structures/interfaces';
 
-interface IComponentValue {
-  handleCartSummary: Function,
-  hideFilterButton: Function
-}
+interface IComponentValue {item:IBeerItemValue,handleCartSummary:Function}
 
-const SingleBeer = ({handleCartSummary,hideFilterButton}: IComponentValue) => {
-  
-  const pageURL = useNavigate();
-  const params: any = useParams();
-  const itemId = params.itemId.slice(1)
-  const url = `https://api.punkapi.com/v2/beers?&ids=${itemId}`;
-  const x: IBeerItemValue[] = []
-  const [selectedItem, setSelectedItem] = useState(x);
-  
-  useEffect(() => {
+export default function ({item,handleCartSummary}:IComponentValue) {
+    const id = `item-${item.id}`;
+    const volume = `${item.volume.value}${item.volume.unit}`;
+    const bitterness = `bitterness ${item.ibu}`;
+    const firstBrewed = `first brewed ${item.first_brewed}`;
+    let price;
     try {
-      getItemsByUrl(url).then(x => {
-        setSelectedItem(x)
-      })
-  
+        price = `$${item.srm.toFixed(2)}`
     } catch (error) {
-      pageURL('/Connection_Error');
-      return;
-      }
-  },[url]);
-  
-  useEffect(() => {
-    hideFilterButton();
-  },[])
+        price = `$${item.srm}`
+    }
+    const [quantity,setQuantity] = useState(1)
 
-  window.scrollTo(0,300);
-  
-  return (<>{
-            selectedItem.map((item: IBeerItemValue) => {
-            return (
-              <div key={item.id}>
-              {/* <CreateFilter /> */}
-              <DisplayBackButton />
-              <DisplaySingleItem item={item} handleCartSummary={handleCartSummary} />
-              <DisplaySimilars item={item} />
-              </div>
-            )
-          })
-        }
-          </>
-
-  )
+  return (
+    <div id="display">
+    <div id={id}  className="selected-item">
+      <img className="selected-item-image"
+        alt="Sorry, no picture to show"
+        src={item.image_url}
+      ></img>
+      <img className="selected-item-image-before"
+        alt="Sorry, no picture to show"
+        src={item.image_url}
+      ></img>
+      <div id="selected-item-discription">
+        <p className="selected-item-volume">{volume}</p>
+        <p className="selected-item-name">{item.name}</p>
+        <p className="selected-item-info">{item.description}</p>
+        <p className="selected-item-bitterness">{bitterness}</p>
+        <p className="selected-item-first-brewed">{firstBrewed}</p>
+        <p className="selected-item-price">{price}</p>
+        <div id="add-to-cart-bar">
+          <input id="selected-item-quantity"
+            type={"number"}
+            min={1}
+            max={10}
+            value={quantity}
+            onChange={(evt) => {
+               setQuantity(Number(evt.target.value))
+            }}
+          ></input>
+          <button id="btn-add-to-cart"
+            onClick={() => {
+                const x = {...item,quantity:quantity};
+                addToCart(x);
+                handleCartSummary(getNumberOfProuductsInCart());
+            }}
+          >ADD TO CART</button>
+          <button id="btn-wish">WISH</button>
+        </div>
+      </div>
+    </div>
+  </div>
+)
 }
 
-export default SingleBeer
+

@@ -1,8 +1,8 @@
 import React from 'react';
-import { brewedAfter,brewedBefore } from '../../constants/filterOptions';
-import { filterKeyContext } from '../../app/App';
+import { brewedAfter,brewedBefore } from '../../components/files/filterOptions';
+import { filterKeyContext } from '../../App';
 import { useContext } from 'react';
-import { IFilterValue } from '../../constants/interfaces';
+import { IFilterValue } from '../../data-structures/interfaces';
 
 interface IComponentValue {
     handleFilter: Function,
@@ -11,7 +11,7 @@ interface IComponentValue {
     filterRef: any
 }
 
-const CreateFilter = ({handleFilter,defaultFilter,filterStyle,filterRef}: IComponentValue) => {
+const Filter = ({handleFilter,defaultFilter,filterStyle,filterRef}: IComponentValue) => {
     const key = useContext(filterKeyContext)
     return (
         <div key={key} id="filter-div" style={{display: filterStyle}}>
@@ -60,4 +60,4 @@ const CreateFilter = ({handleFilter,defaultFilter,filterStyle,filterRef}: ICompo
     )
 }
 
-export default CreateFilter;
+export default Filter;

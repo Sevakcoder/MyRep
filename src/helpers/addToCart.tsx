@@ -1,6 +1,6 @@
 import getIndexById from './getIndexById';
 import checkItemExist from "../containers/cart/checkItemExist";
-import { ICartBeerItemValue } from '../constants/interfaces';
+import { ICartBeerItemValue } from '../data-structures/interfaces';
 
 export default function (selectedItem: ICartBeerItemValue) {
     if (localStorage.cartItemsList) {

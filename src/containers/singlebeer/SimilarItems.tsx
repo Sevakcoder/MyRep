@@ -4,10 +4,13 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/showSimilar.css';
 import getItemsByUrl from '../../helpers/getItemsByUrl';
-import { IBeerItemValue } from '../../constants//interfaces';
+import { IBeerItemValue } from '../../data-structures/interfaces';
 import selectItem from '../../helpers/selectItem';
 
-export default function({item}: {item: IBeerItemValue}) {
+
+interface IComponentValue {item: IBeerItemValue};
+
+export default function({item}: IComponentValue) {
 
     const pageURL = useNavigate();
     let alcoholGT;

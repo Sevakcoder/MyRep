@@ -1,4 +1,4 @@
-import { IBeerItemValue } from '../constants/interfaces';
+import { IBeerItemValue } from '../data-structures/interfaces';
 
 export default async function(url:string) {
   let object = await fetch(url);

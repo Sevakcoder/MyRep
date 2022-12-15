@@ -1,5 +1,5 @@
 import getIndexById from '../../helpers/getIndexById';
-import { ICartBeerItemValue } from '../../constants/interfaces';
+import { ICartBeerItemValue } from '../../data-structures/interfaces';
 
 export default function(item: ICartBeerItemValue) {
     let cartItems: ICartBeerItemValue[] = JSON.parse(localStorage.cartItemsList)

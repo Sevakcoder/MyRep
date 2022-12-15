@@ -1,4 +1,4 @@
-import { IFilterValue } from "./interfaces";
+import { IFilterValue } from "../../data-structures/interfaces";
 
 const defaultFilter: IFilterValue = {
     brewedAfter: '12-2006',

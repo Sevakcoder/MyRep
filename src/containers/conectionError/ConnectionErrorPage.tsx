@@ -6,7 +6,7 @@ interface IComponentValue {
   hideFilterButton: Function
 }
 
-const ConnectionError = ({hideFilterButton}: IComponentValue) => {
+const ConnectionErrorPage = ({hideFilterButton}: IComponentValue) => {
   
   cleanGoBackStorage();
   useEffect(() => {
@@ -26,4 +26,4 @@ const ConnectionError = ({hideFilterButton}: IComponentValue) => {
 )
 }
 
-export default ConnectionError;
+export default ConnectionErrorPage;

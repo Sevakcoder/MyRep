@@ -1,5 +1,5 @@
 import { type } from "@testing-library/user-event/dist/type";
-import { ICartBeerItemValue } from '../../constants/interfaces';
+import { ICartBeerItemValue } from '../../data-structures/interfaces';
 
 export default function (itemId: number,itemsList: ICartBeerItemValue[]) {
     let exist = false;
