@@ -5,7 +5,10 @@ import '../styles/nav-bottom.css';
 import '../styles/bottom-bar.css';
 import { Link } from 'react-router-dom';
 
-const Header = ({cartSummary}: {cartSummary:number}) => {
+interface IComponentValue {
+    numberOfProductsInCart:number
+}
+const Header = ({numberOfProductsInCart}: IComponentValue) => {
     return (
         <>
         <div id="nav-bar">
@@ -31,7 +34,7 @@ const Header = ({cartSummary}: {cartSummary:number}) => {
                         // }}
                         > 
                             <i className="fa fa-shopping-cart"></i>
-                            <span id="cart-icon-label" ><span id="cart-icon-count">{cartSummary}</span> item</span>
+                            <span id="cart-icon-label" ><span id="cart-icon-count">{numberOfProductsInCart}</span> item</span>
                         </label>
                         </Link>
                 </div>
