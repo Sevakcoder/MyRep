@@ -1,20 +1,26 @@
 import React from 'react';
 import { brewedAfter,brewedBefore } from '../../components/files/filterOptions';
-import { filterKeyContext } from '../../App';
-import { useContext } from 'react';
-import { IFilterValue } from '../../data-structures/interfaces';
+import { useSelector } from 'react-redux';
+import { selectFilterKey } from '../../features/filterKeySlice';
+import { selectBrewedAfter } from '../../features/brewedAfterSlice';
+import { selectBrewedBefore } from '../../features/brewedBeforeSlice';
+import { selectSearch } from '../../features/searchSlice';
 
 interface IComponentValue {
     handleFilter: Function,
-    defaultFilter: IFilterValue,
     filterStyle: string,
     filterRef: any
 }
 
-const Filter = ({handleFilter,defaultFilter,filterStyle,filterRef}: IComponentValue) => {
-    const key = useContext(filterKeyContext)
+const Filter = ({handleFilter,filterStyle,filterRef}: IComponentValue) => {
+    const filterKey = useSelector(selectFilterKey)
+    const defaultFilter = {
+        brewedAfter: useSelector(selectBrewedAfter),
+        brewedBefore: useSelector(selectBrewedBefore),
+        searchValue: useSelector(selectSearch),
+    }
     return (
-        <div key={key} id="filter-div" style={{display: filterStyle}}>
+        <div key={filterKey} id="filter-div" style={{display: filterStyle}}>
             <div id="filter" >
                 <ul>
                     <li>

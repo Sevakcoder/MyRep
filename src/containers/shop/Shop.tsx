@@ -49,7 +49,6 @@ export default function({filterRef,perPageItemsList}: IComponentValue) {
                         src={item.image_url}
                         alt="Sorry, no picture to show">
                         </img>
-                        {/* <Link> */}
                         <p className="item-element-view" onClick={(evt) => {
                            select(item.id);
                            let Y: any = document.getElementById(`item-${item.id}`)
@@ -63,7 +62,6 @@ export default function({filterRef,perPageItemsList}: IComponentValue) {
                         }}>
                         VIEW
                         </p>
-                        {/* </Link> */}
                         <p className="item-element-name">
                             {item.name}
                         </p>

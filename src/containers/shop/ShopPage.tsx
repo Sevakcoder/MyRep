@@ -8,9 +8,11 @@ import Pagination from "./Pagination";
 import Filter from './Filter'
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import checkPageUrlExists from './checkPageUrlExists';
-import checkDefaultFilter from './checkDefaultFilter'
-import { IFilterValue, IBeerItemValue } from '../../data-structures/interfaces'
-import { filterKeyContext } from '../../App';
+import { IBeerItemValue } from '../../data-structures/interfaces'
+import { useDispatch, useSelector } from 'react-redux';
+import { editBrewedAfter, selectBrewedAfter } from '../../features/brewedAfterSlice';
+import { editBrewedBefore, selectBrewedBefore } from '../../features/brewedBeforeSlice';
+import { editSearch, selectSearch } from '../../features/searchSlice';
 
 interface IComponentValue {
     displayFilterButton: Function,
@@ -19,42 +21,29 @@ interface IComponentValue {
 
 const ShopPage = ({displayFilterButton,filterStyle}: IComponentValue) => {
 
-    const pageURL = useNavigate()
+    const navigate = useNavigate()
     const currantPageParams = useParams()
     const [currantPage,setCurrantPage] = useState(Number)
     useEffect(() => {
         setCurrantPage(Number(currantPageParams.selectedPage))
     },[currantPageParams]);
    
-    const filterKey = useContext(filterKeyContext)
-    const [defaultFilter,setDefaultFilter] = useState(checkDefaultFilter());
+    const brewedAfterValue = `&brewed_after=${useSelector(selectBrewedAfter)}`;
+    const brewedBeforeValue = `&brewed_before=${useSelector(selectBrewedBefore)}`;
+    const searchValue = useSelector(selectSearch);
+    const dispatch = useDispatch();
     
-    useEffect(() => {
-        setDefaultFilter(checkDefaultFilter())
-    },[filterKey])
-    const [brewedAfter,setBrewedAfter] = useState(`&brewed_after=${defaultFilter.brewedAfter}`);
-    useEffect(() => {
-        setBrewedAfter(`&brewed_after=${defaultFilter.brewedAfter}`)
-    },[filterKey])
-    const [brewedBefore,setBrewedBefore] = useState(`&brewed_before=${defaultFilter.brewedBefore}`);
-    useEffect(() => {
-        setBrewedBefore(`&brewed_before=${defaultFilter.brewedBefore}`)
-    },[filterKey])
-    const [searchValue,setSearchValue] = useState(defaultFilter.searchValue)
-    useEffect(() => {
-        setSearchValue(defaultFilter.searchValue)
-    },[filterKey])
     const handleFilter = (brewedAfter: string,brewedBefore: string,searchValue: string): void => {
-        setBrewedAfter(`&brewed_after=${brewedAfter}`);
-        setBrewedBefore(`&brewed_before=${brewedBefore}`);
-        setSearchValue(searchValue.toLowerCase());
+        dispatch(editBrewedAfter(brewedAfter));
+        dispatch(editBrewedBefore(brewedBefore));
+        dispatch(editSearch(searchValue.toLowerCase()));
         setCurrantPage(1);
-        pageURL(`/shop/${currantPageParams.beerCategory}/shop_page=${1}`);
-
+        navigate(`/shop/${currantPageParams.beerCategory}/shop_page=${1}`);
     }
     useEffect(() => {
         displayFilterButton();
-    },)
+    },[])
+
     const brewedAfterRef = useRef();
     const brewedBeforeRef = useRef();
     const searchRef = useRef();
@@ -65,8 +54,8 @@ const ShopPage = ({displayFilterButton,filterStyle}: IComponentValue) => {
     }
 
     const list: IBeerItemValue[] = []
-
     const [itemsList, setItemsList] = useState(list);
+
     let beerPage = "";
     switch (currantPageParams.beerCategory) {
         case "filtered_beer":
@@ -84,7 +73,7 @@ const ShopPage = ({displayFilterButton,filterStyle}: IComponentValue) => {
         default:
            break;
     }
-    const url = `https://api.punkapi.com/v2/beers?${beerPage}&per_page=60${brewedAfter}${brewedBefore}`;
+    const url = `https://api.punkapi.com/v2/beers?${beerPage}&per_page=60${brewedAfterValue}${brewedBeforeValue}`;
     useEffect(() => {
         try {
             getItemsByUrl(url).then(x => {
@@ -92,7 +81,7 @@ const ShopPage = ({displayFilterButton,filterStyle}: IComponentValue) => {
                 })
     
         } catch (error) {
-            pageURL('/Connection_Error')
+            navigate('/Connection_Error')
             return
         }
     },[url])
@@ -112,7 +101,7 @@ const ShopPage = ({displayFilterButton,filterStyle}: IComponentValue) => {
     
     const selectPage = (pageNumber: number) => {
         setCurrantPage(pageNumber)
-        pageURL(`/shop/${currantPageParams.beerCategory}/shop_page=${pageNumber}`)
+        navigate(`/shop/${currantPageParams.beerCategory}/shop_page=${pageNumber}`)
     }
     
     
@@ -128,7 +117,7 @@ const ShopPage = ({displayFilterButton,filterStyle}: IComponentValue) => {
     }
     return (    
         <>   
-            <Filter filterRef={filterRef} handleFilter={handleFilter} defaultFilter={defaultFilter} filterStyle={filterStyle}/> 
+            <Filter filterRef={filterRef} handleFilter={handleFilter} filterStyle={filterStyle}/> 
             <div id="display">
                 <Shop filterRef={filterRef} perPageItemsList={perPageItemsList} />
                 <div id="pagination-bar">

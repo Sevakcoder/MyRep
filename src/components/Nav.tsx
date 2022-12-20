@@ -7,6 +7,12 @@ import { Link, useNavigate } from "react-router-dom";
 import cleanGoBackStorage from '../helpers/cleanGoBackStorage';
 import beerType from './files/beerType';
 import getHomePage from '../helpers/getHomePage';
+import { useDispatch } from 'react-redux';
+import { editFilterKey } from '../features/filterKeySlice';
+import { editBrewedAfter } from '../features/brewedAfterSlice';
+import { editBrewedBefore } from '../features/brewedBeforeSlice';
+import { editSearch } from '../features/searchSlice';
+import defaultFilter from './files/defaultFilter';
 
 interface IComponentValue {
     filterUpdate: Function,
@@ -21,14 +27,20 @@ const Nav = ({filterUpdate,filterButtonStyle,hideFilter,showFilter,displayFilter
     
     const goHome = useNavigate();
     const pagePath = useNavigate();
+    const dispatch = useDispatch();
     const reset = () => {
         cleanGoBackStorage();
         localStorage.removeItem('homeBeerCategory');
         pagePath('/')
     }
     const selectHome = () => {
+        dispatch(editFilterKey())
         cleanGoBackStorage();
-        filterUpdate();
+        // filterUpdate();
+        dispatch(editFilterKey())
+        dispatch(editBrewedAfter(defaultFilter.brewedAfter))
+        dispatch(editBrewedBefore(defaultFilter.brewedBefore))
+        dispatch(editSearch(defaultFilter.searchValue))
         goHome(getHomePage())
     }
     return (
