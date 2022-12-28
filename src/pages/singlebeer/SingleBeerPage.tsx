@@ -9,11 +9,11 @@ import BackButton from './BackButton';
 import { IBeerItemValue } from '../../data-structures/interfaces';
 
 interface IComponentValue {
-  handleCartSummary: Function,
+  handleNumberOfProductsInCart: Function,
   hideFilterButton: Function
 }
 
-const SingleBeerPage = ({handleCartSummary,hideFilterButton}: IComponentValue) => {
+const SingleBeerPage = ({handleNumberOfProductsInCart,hideFilterButton}: IComponentValue) => {
   
   const pageURL = useNavigate();
   // const pageParams: any = useParams();
@@ -66,7 +66,7 @@ const SingleBeerPage = ({handleCartSummary,hideFilterButton}: IComponentValue) =
             return (
               <div key={item.id}>
               <BackButton />
-              <SingleBeer item={item} handleCartSummary={handleCartSummary} />
+              <SingleBeer item={item} handleNumberOfProductsInCart={handleNumberOfProductsInCart} />
               <SimilarItems item={item} />
               </div>
             )

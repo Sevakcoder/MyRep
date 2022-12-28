@@ -1,5 +1,5 @@
 import getIndexById from './getIndexById';
-import checkItemExist from "../containers/cart/checkItemExist";
+import checkItemExist from '../pages/cart/checkItemExist';
 import { ICartBeerItemValue } from '../data-structures/interfaces';
 
 export default function (selectedItem: ICartBeerItemValue) {

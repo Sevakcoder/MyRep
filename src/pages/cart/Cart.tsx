@@ -8,16 +8,16 @@ import totalPrice from './totalPrice';
 import { ICartBeerItemValue } from '../../data-structures/interfaces';
 
 
-interface IComponentValue {handleCartSummary: Function}
+interface IComponentValue {handleNumberOfProductsInCart: Function}
 
-export default function({handleCartSummary}: IComponentValue) {
+export default function({handleNumberOfProductsInCart}: IComponentValue) {
 
     const [cartItems, setCartItems] = useState(JSON.parse(localStorage.cartItemsList));
     
     const removeItem = (item: ICartBeerItemValue) => {
         removeFromCart(item);
         setCartItems(JSON.parse(localStorage.cartItemsList))
-        handleCartSummary(getNumberOfProuductsInCart());
+        handleNumberOfProductsInCart(getNumberOfProuductsInCart());
     }
     const encrease = (item: ICartBeerItemValue) => {
         encreaseQTY(item);

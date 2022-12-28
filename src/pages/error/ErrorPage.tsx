@@ -1,5 +1,5 @@
 import React from 'react'
-import cleanGoBackStorage from "../../helpers/cleanGoBackStorage";
+import cleanGoBackStorage from "../../helpers/cleanSelectedItemInfo";
 import { useEffect } from 'react' 
 
 interface IComponentValue {

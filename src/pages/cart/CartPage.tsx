@@ -1,17 +1,17 @@
 import React from 'react'
 import '../../styles/cart.css';
-import Cart from './Cart'
-import cleanGoBackStorage from '../../helpers/cleanGoBackStorage'
-import { useEffect } from 'react' 
+import Cart from './Cart';
+import cleanSelectedItemInfo from '../../helpers/cleanSelectedItemInfo';
+import { useEffect } from 'react';
 
 interface IComponentValue {
-    handleCartSummary: Function,
+    handleNumberOfProductsInCart: Function,
     hideFilterButton: Function
 }
 
-const CartPage = ({handleCartSummary,hideFilterButton}: IComponentValue) => {
+const CartPage = ({handleNumberOfProductsInCart,hideFilterButton}: IComponentValue) => {
     
-    cleanGoBackStorage();
+    cleanSelectedItemInfo();
 
     useEffect(() => {
         hideFilterButton();
@@ -27,7 +27,7 @@ const CartPage = ({handleCartSummary,hideFilterButton}: IComponentValue) => {
         )
     }
     return (
-          <Cart handleCartSummary={handleCartSummary} />
+          <Cart handleNumberOfProductsInCart={handleNumberOfProductsInCart} />
     )
 }
   

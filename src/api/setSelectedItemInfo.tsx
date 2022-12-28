@@ -1,10 +1,9 @@
 import { IFilterValue } from '../data-structures/interfaces';
 
-const setSelectedItemInfo = (itemId: number,posY: number,selectedPageFilter:IFilterValue,selectedPageURL:string): void => {
+const setSelectedItemInfo = (itemId: number,posY: number,selectedPageURL:string): void => {
     
     localStorage.setItem("selectedItemId",itemId.toString())
     localStorage.setItem("selectedItemPosY",posY.toString())
-    localStorage.setItem("selectedPageFilter",JSON.stringify(selectedPageFilter))
     localStorage.setItem("selectedPageURL",JSON.stringify(selectedPageURL))
 }
 

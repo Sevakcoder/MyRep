@@ -79,7 +79,7 @@ const brewedBefore:IFilterOptionValue[] = [
     },
     {
         name: '2011',
-        value: '01-20123',
+        value: '01-2012',
     },
     {
         name: '2012',

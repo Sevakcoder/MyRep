@@ -8,32 +8,23 @@ import './styles/filter.css';
 import Header from "./components/Header";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
-import ShopPage from "./containers/shop/ShopPage";
-import CartPage from "./containers/cart/CartPage";
-import SingleBeerPage from "./containers/singlebeer/SingleBeerPage";
-import HomePage from './containers/home/HomePage';
-import ConnectionErrorPage from './containers/conectionError/ConnectionErrorPage';
-import ErrorPage from './containers/error/ErrorPage';
+import ShopPage from "./pages/shop/ShopPage";
+import CartPage from "./pages/cart/CartPage";
+import SingleBeerPage from "./pages/singlebeer/SingleBeerPage";
+import HomePage from './pages/home/HomePage';
+import ConnectionErrorPage from './pages/conectionError/ConnectionErrorPage';
+import ErrorPage from './pages/error/ErrorPage';
 import { Routes, Route } from "react-router-dom";
-import { createContext, useState } from "react";
+import { useState } from "react";
 import getNumberOfProuductsInCart from './helpers/getNumberOfProuductsInCart';
 
-export const filterKeyContext= createContext(Math.random())
 
 function App() {
   
-  const [filterKey,setFilterKey] = useState(Math.random())
-  const filterUpdate = (): void => {
-    setFilterKey(Math.random())
-  }
   const [numberOfProductsInCart, setNumberOfProductsInCart] = useState(getNumberOfProuductsInCart())
-  const handleCartSummary = (numberOfProducts:number): void => {
+  const handleNumberOfProductsInCart = (numberOfProducts:number): void => {
     setNumberOfProductsInCart(numberOfProducts)
   }
-  // const pagePath = useNavigate();
-  // const goToCart = () => {
-  //   pagePath('/cart')
-  // };
   const [filterButtonStyle,setFilterButtonStyle] = useState<string>("none")
   const [displayFilterStyle,setDisplayFilterStyle] = useState('none');
   const [hideFilterStyle,setHideFilterStyle] = useState('flex');
@@ -58,11 +49,11 @@ function App() {
   return (
     <>
     <Header numberOfProductsInCart={numberOfProductsInCart} />
-    <Nav filterUpdate={filterUpdate} filterButtonStyle={filterButtonStyle} hideFilter={hideFilter} showFilter={showFilter} displayFilterStyle={displayFilterStyle} hideFilterStyle={hideFilterStyle} />
+    <Nav  filterButtonStyle={filterButtonStyle} hideFilter={hideFilter} showFilter={showFilter} displayFilterStyle={displayFilterStyle} hideFilterStyle={hideFilterStyle} />
     <Routes>
-        <Route path={`/shop/:beerCategory/shop_page=:selectedPage`} element={<filterKeyContext.Provider value={filterKey} > <ShopPage  displayFilterButton={displayFilterButton} filterStyle={filterStyle} /></filterKeyContext.Provider>} />
-        <Route path={`/shop/:beerCategory/single_beer/id=:itemId`} element={<SingleBeerPage handleCartSummary={handleCartSummary} hideFilterButton={hideFilterButton} />} />
-        <Route path='/cart' element={<CartPage handleCartSummary={handleCartSummary} hideFilterButton={hideFilterButton} />} />
+        <Route path={`/shop/:beerCategory/shop_page=:selectedPage`} element={<ShopPage  displayFilterButton={displayFilterButton} filterStyle={filterStyle} />} />
+        <Route path={`/shop/:beerCategory/single_beer/id=:itemId`} element={<SingleBeerPage handleNumberOfProductsInCart={handleNumberOfProductsInCart} hideFilterButton={hideFilterButton} />} />
+        <Route path='/cart' element={<CartPage handleNumberOfProductsInCart={handleNumberOfProductsInCart} hideFilterButton={hideFilterButton} />} />
         <Route path='/' element={<HomePage />} />
         <Route path='/Connection_Error' element={<ConnectionErrorPage hideFilterButton={hideFilterButton} />} />
         <Route path='*' element={<ErrorPage hideFilterButton={hideFilterButton} />} />

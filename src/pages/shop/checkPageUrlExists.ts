@@ -1,4 +1,4 @@
-import cleanGoBackStorage from "../../helpers/cleanGoBackStorage";
+import cleanGoBackStorage from "../../helpers/cleanSelectedItemInfo";
 
 export default function(currantPageParams: any): void {
     const currantPageURL = Object.values(currantPageParams)[0]

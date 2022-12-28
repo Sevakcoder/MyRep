@@ -53,12 +53,7 @@ export default function({filterRef,perPageItemsList}: IComponentValue) {
                            select(item.id);
                            let Y: any = document.getElementById(`item-${item.id}`)
                            let posY = Y.offsetTop;
-                           let selectedPageFilter = {
-                                brewedAfter: filterRef.brewedAfterRef.current.value,
-                                brewedBefore: filterRef.brewedBeforeRef.current.value,
-                                searchValue: filterRef.searchRef.current.value
-                           }
-                           setSelectedItemInfo(item.id,posY,selectedPageFilter,selectedPageURL);
+                           setSelectedItemInfo(item.id,posY,selectedPageURL);
                         }}>
                         VIEW
                         </p>

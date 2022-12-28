@@ -4,9 +4,9 @@ import addToCart from '../../helpers/addToCart'
 import getNumberOfProuductsInCart from '../../helpers/getNumberOfProuductsInCart';
 import { IBeerItemValue } from '../../data-structures/interfaces';
 
-interface IComponentValue {item:IBeerItemValue,handleCartSummary:Function}
+interface IComponentValue {item:IBeerItemValue,handleNumberOfProductsInCart:Function}
 
-export default function ({item,handleCartSummary}:IComponentValue) {
+export default function ({item,handleNumberOfProductsInCart}:IComponentValue) {
     const id = `item-${item.id}`;
     const volume = `${item.volume.value}${item.volume.unit}`;
     const bitterness = `bitterness ${item.ibu}`;
@@ -51,7 +51,7 @@ export default function ({item,handleCartSummary}:IComponentValue) {
             onClick={() => {
                 const x = {...item,quantity:quantity};
                 addToCart(x);
-                handleCartSummary(getNumberOfProuductsInCart());
+                handleNumberOfProductsInCart(getNumberOfProuductsInCart());
             }}
           >ADD TO CART</button>
           <button id="btn-wish">WISH</button>

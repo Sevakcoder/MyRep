@@ -4,7 +4,7 @@ import '../styles/nav-middle.css';
 import '../styles/nav-bottom.css';
 import '../styles/bottom-bar.css';
 import { Link, useNavigate } from "react-router-dom";
-import cleanGoBackStorage from '../helpers/cleanGoBackStorage';
+import cleanGoBackStorage from '../helpers/cleanSelectedItemInfo';
 import beerType from './files/beerType';
 import getHomePage from '../helpers/getHomePage';
 import { useDispatch } from 'react-redux';
@@ -12,10 +12,8 @@ import { editFilterKey } from '../features/filterKeySlice';
 import { editBrewedAfter } from '../features/brewedAfterSlice';
 import { editBrewedBefore } from '../features/brewedBeforeSlice';
 import { editSearch } from '../features/searchSlice';
-import defaultFilter from './files/defaultFilter';
 
 interface IComponentValue {
-    filterUpdate: Function,
     filterButtonStyle: string,
     hideFilter: Function,
     showFilter: Function,
@@ -23,7 +21,13 @@ interface IComponentValue {
     hideFilterStyle: string
 }
 
-const Nav = ({filterUpdate,filterButtonStyle,hideFilter,showFilter,displayFilterStyle,hideFilterStyle}: IComponentValue) => {
+const defaultFilter = {
+    brewedAfter: '12-2006',
+    brewedBefore: '01-2018',
+    searchValue: ''
+}
+
+const Nav = ({filterButtonStyle,hideFilter,showFilter,displayFilterStyle,hideFilterStyle}: IComponentValue) => {
     
     const goHome = useNavigate();
     const pagePath = useNavigate();

@@ -1,4 +1,5 @@
 import React from 'react';
+// import { brewedAfter,brewedBefore } from '../../components/files/filterOptions';
 import { brewedAfter,brewedBefore } from '../../components/files/filterOptions';
 import { useSelector } from 'react-redux';
 import { selectFilterKey } from '../../features/filterKeySlice';
@@ -6,13 +7,13 @@ import { selectBrewedAfter } from '../../features/brewedAfterSlice';
 import { selectBrewedBefore } from '../../features/brewedBeforeSlice';
 import { selectSearch } from '../../features/searchSlice';
 
-interface IComponentValue {
+interface IComponentProp {
     handleFilter: Function,
     filterStyle: string,
     filterRef: any
 }
 
-const Filter = ({handleFilter,filterStyle,filterRef}: IComponentValue) => {
+const Filter = ({handleFilter,filterStyle,filterRef}: IComponentProp) => {
     const filterKey = useSelector(selectFilterKey)
     const defaultFilter = {
         brewedAfter: useSelector(selectBrewedAfter),
