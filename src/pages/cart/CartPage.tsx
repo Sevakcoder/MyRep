@@ -4,12 +4,12 @@ import Cart from './Cart';
 import cleanSelectedItemInfo from '../../helpers/cleanSelectedItemInfo';
 import { useEffect } from 'react';
 
-interface IComponentValue {
+interface ICartPageProps {
     handleNumberOfProductsInCart: Function,
     hideFilterButton: Function
 }
 
-const CartPage = ({handleNumberOfProductsInCart,hideFilterButton}: IComponentValue) => {
+const CartPage = ({handleNumberOfProductsInCart,hideFilterButton}: ICartPageProps) => {
     
     cleanSelectedItemInfo();
 

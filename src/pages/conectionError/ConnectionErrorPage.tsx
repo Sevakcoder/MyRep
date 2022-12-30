@@ -2,11 +2,11 @@ import React from 'react'
 import cleanGoBackStorage from "../../helpers/cleanSelectedItemInfo";
 import { useEffect } from 'react' 
 
-interface IComponentValue {
+interface IConnectionErrorPageProps {
   hideFilterButton: Function
 }
 
-const ConnectionErrorPage = ({hideFilterButton}: IComponentValue) => {
+const ConnectionErrorPage = ({hideFilterButton}: IConnectionErrorPageProps) => {
   
   cleanGoBackStorage();
   useEffect(() => {

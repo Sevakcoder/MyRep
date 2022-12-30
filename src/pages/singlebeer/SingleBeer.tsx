@@ -4,9 +4,9 @@ import addToCart from '../../helpers/addToCart'
 import getNumberOfProuductsInCart from '../../helpers/getNumberOfProuductsInCart';
 import { IBeerItemValue } from '../../data-structures/interfaces';
 
-interface IComponentValue {item:IBeerItemValue,handleNumberOfProductsInCart:Function}
+interface ISingleBeerProps {item:IBeerItemValue,handleNumberOfProductsInCart:Function}
 
-export default function ({item,handleNumberOfProductsInCart}:IComponentValue) {
+export default function ({item,handleNumberOfProductsInCart}:ISingleBeerProps) {
     const id = `item-${item.id}`;
     const volume = `${item.volume.value}${item.volume.unit}`;
     const bitterness = `bitterness ${item.ibu}`;

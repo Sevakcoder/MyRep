@@ -5,10 +5,10 @@ import '../styles/nav-bottom.css';
 import '../styles/bottom-bar.css';
 import { Link } from 'react-router-dom';
 
-interface IComponentValue {
+interface IHeaderProps {
     numberOfProductsInCart:number
 }
-const Header = ({numberOfProductsInCart}: IComponentValue) => {
+const Header = ({numberOfProductsInCart}: IHeaderProps) => {
     return (
         <>
         <div id="nav-bar">

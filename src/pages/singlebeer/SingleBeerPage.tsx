@@ -8,12 +8,12 @@ import SingleBeer from './SingleBeer';
 import BackButton from './BackButton';
 import { IBeerItemValue } from '../../data-structures/interfaces';
 
-interface IComponentValue {
+interface ISingleBeerPageProps {
   handleNumberOfProductsInCart: Function,
   hideFilterButton: Function
 }
 
-const SingleBeerPage = ({handleNumberOfProductsInCart,hideFilterButton}: IComponentValue) => {
+const SingleBeerPage = ({handleNumberOfProductsInCart,hideFilterButton}: ISingleBeerPageProps) => {
   
   const pageURL = useNavigate();
   // const pageParams: any = useParams();

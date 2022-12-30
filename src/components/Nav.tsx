@@ -13,7 +13,7 @@ import { editBrewedAfter } from '../features/brewedAfterSlice';
 import { editBrewedBefore } from '../features/brewedBeforeSlice';
 import { editSearch } from '../features/searchSlice';
 
-interface IComponentValue {
+interface INavProps {
     filterButtonStyle: string,
     hideFilter: Function,
     showFilter: Function,
@@ -27,7 +27,7 @@ const defaultFilter = {
     searchValue: ''
 }
 
-const Nav = ({filterButtonStyle,hideFilter,showFilter,displayFilterStyle,hideFilterStyle}: IComponentValue) => {
+const Nav = ({filterButtonStyle,hideFilter,showFilter,displayFilterStyle,hideFilterStyle}: INavProps) => {
     
     const goHome = useNavigate();
     const pagePath = useNavigate();

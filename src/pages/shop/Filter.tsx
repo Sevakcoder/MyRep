@@ -7,13 +7,13 @@ import { selectBrewedAfter } from '../../features/brewedAfterSlice';
 import { selectBrewedBefore } from '../../features/brewedBeforeSlice';
 import { selectSearch } from '../../features/searchSlice';
 
-interface IComponentProp {
+interface IFilterProps {
     handleFilter: Function,
     filterStyle: string,
     filterRef: any
 }
 
-const Filter = ({handleFilter,filterStyle,filterRef}: IComponentProp) => {
+const Filter = ({handleFilter,filterStyle,filterRef}: IFilterProps) => {
     const filterKey = useSelector(selectFilterKey)
     const defaultFilter = {
         brewedAfter: useSelector(selectBrewedAfter),

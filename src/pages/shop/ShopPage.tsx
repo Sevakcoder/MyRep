@@ -14,12 +14,12 @@ import { editBrewedAfter, selectBrewedAfter } from '../../features/brewedAfterSl
 import { editBrewedBefore, selectBrewedBefore } from '../../features/brewedBeforeSlice';
 import { editSearch, selectSearch } from '../../features/searchSlice';
 
-interface IComponentValue {
+interface IShopPageProps {
     displayFilterButton: Function,
     filterStyle: string
 }
 
-const ShopPage = ({displayFilterButton,filterStyle}: IComponentValue) => {
+const ShopPage = ({displayFilterButton,filterStyle}: IShopPageProps) => {
 
     const navigate = useNavigate()
     const currantPageParams = useParams()

@@ -8,9 +8,9 @@ import { IBeerItemValue } from '../../data-structures/interfaces';
 import selectItem from '../../helpers/selectItem';
 
 
-interface IComponentValue {item: IBeerItemValue};
+interface ISimilarItemsProps {item: IBeerItemValue};
 
-export default function({item}: IComponentValue) {
+export default function({item}: ISimilarItemsProps) {
 
     const pageURL = useNavigate();
     let alcoholGT;

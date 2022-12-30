@@ -1,13 +1,13 @@
 import React from 'react'
 import '../../styles/pagination.css'
 
-interface IComponentValue {
+interface IPaginationProps {
   pagesAmount: number, 
   currantPage: number,
   selectPage: Function
 }
 
-export default function({pagesAmount, currantPage, selectPage}: IComponentValue) {
+export default function({pagesAmount, currantPage, selectPage}: IPaginationProps) {
   const pageNumbers: number[] = []
   for (let i = 1; i <= pagesAmount; i++) {
       pageNumbers.push(i);

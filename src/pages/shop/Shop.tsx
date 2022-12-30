@@ -5,12 +5,12 @@ import selectItem from '../../helpers/selectItem';
 import { useNavigate } from 'react-router-dom';
 import { IBeerItemValue } from '../../data-structures/interfaces';
 
-interface IComponentValue {
+interface IShopProps {
     filterRef: any,
     perPageItemsList: IBeerItemValue[]
 }
 
-export default function({filterRef,perPageItemsList}: IComponentValue) {
+export default function({filterRef,perPageItemsList}: IShopProps) {
    
     const selectedItemsPageParams = useParams();
     const selectedPageURL: any = Object.values(selectedItemsPageParams)[0]

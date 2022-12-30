@@ -8,9 +8,9 @@ import totalPrice from './totalPrice';
 import { ICartBeerItemValue } from '../../data-structures/interfaces';
 
 
-interface IComponentValue {handleNumberOfProductsInCart: Function}
+interface ICartProps {handleNumberOfProductsInCart: Function}
 
-export default function({handleNumberOfProductsInCart}: IComponentValue) {
+export default function({handleNumberOfProductsInCart}: ICartProps) {
 
     const [cartItems, setCartItems] = useState(JSON.parse(localStorage.cartItemsList));
     
