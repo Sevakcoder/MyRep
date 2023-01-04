@@ -12,25 +12,24 @@
     font-family: 'Allerta';
 }
 
-
 .similar-items-bar {
     position: relative;
-    display:flex;
+    display: flex;
     flex-flow: row;
     height: 100%;
-   
+
 }
 
 #scroll-left {
     position: absolute;
     width: 4rem;
     height: 12rem;
-    float:right;
+    float: right;
     top: calc(50% - 6rem);
     color: grey;
     border: 1px solid white;
-    border-top-left-radius:1rem;
-    border-bottom-left-radius:1rem;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
     text-align: center;
     font-size: 3rem;
     font-weight: bolder;
@@ -43,8 +42,8 @@
 
 .items-scroll-bar {
     margin: 1.5rem 4rem;
-    display:flex;
-    flex-flow:row-reverse;
+    display: flex;
+    flex-flow: row-reverse;
     justify-items: center;
     align-items: center;
     overflow-x: hidden;
@@ -65,8 +64,8 @@
     font-size: 3rem;
     font-weight: bolder;
     border: 1px solid white;
-    border-top-right-radius:1rem;
-    border-bottom-right-radius:1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 
 #scroll-right:hover {
@@ -84,7 +83,8 @@
     max-width: 18rem;
     justify-content: space-between;
 
-    height: 34rem;   /* Calc(100% - 2rem) didnt work ????? */
+    height: 34rem;
+    /* Calc(100% - 2rem) didnt work ????? */
 
     border: 1px solid rgba(128, 128, 128, 0.212);
     border-radius: 1rem;
@@ -93,12 +93,14 @@
     align-items: center;
 }
 
-.similar-item-element:hover .similar-item-element-image{
-   opacity: 0.2;
+.similar-item-element:hover .similar-item-element-image {
+    opacity: 0.2;
 }
+
 .similar-item-element:hover .similar-item-element-view {
     display: flex;
 }
+
 .similar-item-element-image {
     margin: 0.5rem;
     padding: 0;
@@ -148,7 +150,7 @@
     color: rgb(189, 180, 98);
     font-family: sans-serif;
     font-size: 1.1rem;
-  
+
 }
 
 
@@ -181,6 +183,5 @@
     color: black;
     font-family: 'Montez';
     font-size: 1.4rem;
-    font-weight:700;
+    font-weight: 700;
 }
-

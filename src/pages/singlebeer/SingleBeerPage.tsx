@@ -13,35 +13,35 @@ interface ISingleBeerPageProps {
   hideFilterButton: Function
 }
 
-const SingleBeerPage = ({handleNumberOfProductsInCart,hideFilterButton}: ISingleBeerPageProps) => {
-  
+const SingleBeerPage = ({ handleNumberOfProductsInCart, hideFilterButton }: ISingleBeerPageProps) => {
+
   const pageURL = useNavigate();
   // const pageParams: any = useParams();
-  const {beerCategory,itemId}:any = useParams()
+  const { beerCategory, itemId }: any = useParams()
   const ids = `&ids=${itemId}`
   const url = `https://api.punkapi.com/v2/beers?${ids}`;
   const x: IBeerItemValue[] = []
   const [selectedItem, setSelectedItem] = useState(x);
-  
+
   useEffect(() => {
     try {
       getItemsByUrl(url).then(x => {
         setSelectedItem(x)
       })
-  
+
     } catch (error) {
       pageURL('/Connection_Error');
       return;
-      }
-  },[url]);
-  
+    }
+  }, [url]);
+
   useEffect(() => {
     hideFilterButton();
-  },[])
+  }, [])
 
-  window.scrollTo(0,300);
+  window.scrollTo(0, 300);
 
-  if (!["filtered_beer","non_filtered_beer","alcohol_beer","non_alcohol_beer"].includes(beerCategory)) {
+  if (!["filtered_beer", "non_filtered_beer", "alcohol_beer", "non_alcohol_beer"].includes(beerCategory)) {
     return <Navigate to={'/'} />
   }
 
@@ -62,17 +62,17 @@ const SingleBeerPage = ({handleNumberOfProductsInCart,hideFilterButton}: ISingle
   }
 
   return (<>{
-            selectedItem.map((item: IBeerItemValue) => {
-            return (
-              <div key={item.id}>
-              <BackButton />
-              <SingleBeer item={item} handleNumberOfProductsInCart={handleNumberOfProductsInCart} />
-              <SimilarItems item={item} />
-              </div>
-            )
-          })
-        }
-          </>
+    selectedItem.map((item: IBeerItemValue) => {
+      return (
+        <div key={item.id}>
+          <BackButton />
+          <SingleBeer item={item} handleNumberOfProductsInCart={handleNumberOfProductsInCart} />
+          <SimilarItems item={item} />
+        </div>
+      )
+    })
+  }
+  </>
 
   )
 }

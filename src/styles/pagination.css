@@ -8,7 +8,7 @@
 }
 
 #pagination-display-bar {
-    
+
     display: flex;
     flex-flow: row;
     flex-wrap: nowrap;
@@ -16,7 +16,7 @@
     border: 0;
     margin: 0;
     padding: 0;
- }
+}
 
 .pagenumbers {
     width: 3.5rem;
@@ -31,19 +31,21 @@
     font-size: 1.3rem;
     font-family: 'Allerta';
     font-weight: 400;
-    border: 1px solid transparent; 
+    border: 1px solid transparent;
 
-    
+
 }
+
 .pagenumbers:hover {
     background-color: rgb(107, 128, 128);
     border: 1px solid grey;
     border-radius: 0.5rem;
     cursor: pointer;
 }
+
 .pagenumbers:active {
     background-color: rgb(107, 128, 128);
-    border: 1px solid grey; 
+    border: 1px solid grey;
     border-radius: 0.5rem;
 }
 
@@ -60,7 +62,7 @@
     font-size: 1.3rem;
     font-family: 'Allerta';
     font-weight: 400;
-    border: 1px solid grey; 
+    border: 1px solid grey;
     border-radius: 0.5rem;
 
 }

@@ -9,14 +9,14 @@ interface ICartPageProps {
     hideFilterButton: Function
 }
 
-const CartPage = ({handleNumberOfProductsInCart,hideFilterButton}: ICartPageProps) => {
-    
+const CartPage = ({ handleNumberOfProductsInCart, hideFilterButton }: ICartPageProps) => {
+
     cleanSelectedItemInfo();
 
     useEffect(() => {
         hideFilterButton();
-      },[])
-    
+    }, [])
+
     if (!localStorage.cartItemsList) {
         return (
             <div id='display'>
@@ -27,9 +27,8 @@ const CartPage = ({handleNumberOfProductsInCart,hideFilterButton}: ICartPageProp
         )
     }
     return (
-          <Cart handleNumberOfProductsInCart={handleNumberOfProductsInCart} />
+        <Cart handleNumberOfProductsInCart={handleNumberOfProductsInCart} />
     )
 }
-  
+
 export default CartPage;
-  

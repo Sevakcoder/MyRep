@@ -1,4 +1,4 @@
-export default function(): void {
+export default function (): void {
     const showFilterStyle: any = document.getElementById("show-filter");
     showFilterStyle.style.display = "none";
     const hideFilterStyle: any = document.getElementById("hide-filter");

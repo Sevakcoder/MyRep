@@ -24,6 +24,7 @@
     border-radius: 0.3rem;
 
 }
+
 .button-back-forward:hover {
     background-color: rgba(128, 128, 128, 0.24);
     cursor: pointer;
@@ -166,7 +167,7 @@
     font-family: 'Allerta';
     font-weight: 700;
     letter-spacing: 0.15rem;
-} 
+}
 
 #btn-add-to-cart:hover {
     background-color: rgba(189, 180, 98, 0.603);
@@ -201,7 +202,3 @@
 #btn-wish:active {
     color: rgb(204, 190, 164);
 }
-
-
-
-

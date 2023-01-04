@@ -7,10 +7,9 @@ import getItemsByUrl from '../../helpers/getItemsByUrl';
 import { IBeerItemValue } from '../../data-structures/interfaces';
 import selectItem from '../../helpers/selectItem';
 
+interface ISimilarItemsProps { item: IBeerItemValue };
 
-interface ISimilarItemsProps {item: IBeerItemValue};
-
-export default function({item}: ISimilarItemsProps) {
+export default function ({ item }: ISimilarItemsProps) {
 
     const pageURL = useNavigate();
     let alcoholGT;
@@ -27,61 +26,61 @@ export default function({item}: ISimilarItemsProps) {
             getItemsByUrl(url).then(x => {
                 setSimilarItemsList(x)
             })
-    
+
         } catch (error) {
             pageURL('/Connection_Error');
             return;
-            }
-    },[url])
+        }
+    }, [url])
 
-    const select = (id:number) => {
-        selectItem(id,pageURL);
+    const select = (id: number) => {
+        selectItem(id, pageURL);
     }
 
 
     return (
-    <div key={"similarItemDivId"} id="similarItemDivId">
-        <div id="you-may-like">
-        YOU MAY ALSO LIKE<br></br>similar items {`(${similarItemsList.length})`}
-        </div>
-        <div id="similar-items-bar" className="similar-items-bar">
-            <button id="scroll-left" onClick={() => {
-                let leftStep: any = document.querySelector(".items-scroll-bar")
-                leftStep.scrollBy(200,0)
-            }}><i className="fa fa-angle-left"></i></button>
-            <div id="items-scroll-bar" className="items-scroll-bar">
-                {similarItemsList.map((item) => {
-                    let price;
-                    try {
-                    price = `$${item.srm.toFixed(2)}`;
-                    } catch (error) {
-                        price = `$${item.srm}`;
-                    }
-                    return(
-                        <div key={item.id} className="similar-item-element">
-                            <img className="similar-item-element-image"
-                            alt="Sorry, no picture to show"
-                            src={item.image_url}
-                            ></img>
-                            <p className="similar-item-element-view" onClick={() => {
-                                select(item.id)
-                            }}>VIEW</p>
-                            <p className="similar-item-alcohol">{`${item.abv}%`}</p>
-                            <p className="similar-item-bitterness">{`bitterness ${item.ibu}`}</p>
-                            <p className="similar-item-name">{item.name}</p>
-                            <p className="similar-item-price">{price}</p>
-                        
-                        </div>
-                    )
-                })}
+        <div key={"similarItemDivId"} id="similarItemDivId">
+            <div id="you-may-like">
+                YOU MAY ALSO LIKE<br></br>similar items {`(${similarItemsList.length})`}
             </div>
-            <button id="scroll-right" onClick={() => {
-            let leftStep: any = document.querySelector(".items-scroll-bar")
-            leftStep.scrollBy(-200,0)
-            }}><i className="fa fa-angle-right"></i></button>
+            <div id="similar-items-bar" className="similar-items-bar">
+                <button id="scroll-left" onClick={() => {
+                    let leftStep: any = document.querySelector(".items-scroll-bar")
+                    leftStep.scrollBy(200, 0)
+                }}><i className="fa fa-angle-left"></i></button>
+                <div id="items-scroll-bar" className="items-scroll-bar">
+                    {similarItemsList.map((item) => {
+                        let price;
+                        try {
+                            price = `$${item.srm.toFixed(2)}`;
+                        } catch (error) {
+                            price = `$${item.srm}`;
+                        }
+                        return (
+                            <div key={item.id} className="similar-item-element">
+                                <img className="similar-item-element-image"
+                                    alt="Sorry, no picture to show"
+                                    src={item.image_url}
+                                ></img>
+                                <p className="similar-item-element-view" onClick={() => {
+                                    select(item.id)
+                                }}>VIEW</p>
+                                <p className="similar-item-alcohol">{`${item.abv}%`}</p>
+                                <p className="similar-item-bitterness">{`bitterness ${item.ibu}`}</p>
+                                <p className="similar-item-name">{item.name}</p>
+                                <p className="similar-item-price">{price}</p>
+
+                            </div>
+                        )
+                    })}
+                </div>
+                <button id="scroll-right" onClick={() => {
+                    let leftStep: any = document.querySelector(".items-scroll-bar")
+                    leftStep.scrollBy(-200, 0)
+                }}><i className="fa fa-angle-right"></i></button>
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 

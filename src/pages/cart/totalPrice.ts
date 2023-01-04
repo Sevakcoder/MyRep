@@ -1,9 +1,9 @@
 import { ICartBeerItemValue } from '../../data-structures/interfaces';
 
-export default function(cartItems: ICartBeerItemValue[]) {
+export default function (cartItems: ICartBeerItemValue[]) {
     let total = 0;
     cartItems.forEach(item => {
-        total += Number(item.quantity)*Number(item.srm)
+        total += Number(item.quantity) * Number(item.srm)
     });
     return total;
 }

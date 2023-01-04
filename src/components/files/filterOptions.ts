@@ -1,6 +1,6 @@
 import { IFilterOptionValue } from "../../data-structures/interfaces";
 
-const brewedAfter:IFilterOptionValue[] = [
+const brewedAfter: IFilterOptionValue[] = [
     {
         name: 'after',
         value: '12-2006',
@@ -55,7 +55,7 @@ const brewedAfter:IFilterOptionValue[] = [
     },
 ]
 
-const brewedBefore:IFilterOptionValue[] = [
+const brewedBefore: IFilterOptionValue[] = [
     {
         name: 'before',
         value: '01-2018',
@@ -111,4 +111,4 @@ const brewedBefore:IFilterOptionValue[] = [
     },
 ]
 
-export {brewedAfter,brewedBefore};
+export { brewedAfter, brewedBefore };

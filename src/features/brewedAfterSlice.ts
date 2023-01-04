@@ -1,12 +1,12 @@
-export const brewedAfterReducer = (state={},action: any) => {
+export const brewedAfterReducer = (state = {}, action: any) => {
     if (action.type === "edit-brewed-after") {
-      return {
-        ...state,
-        brewedAfterValue: action.brewedAfterValue
-      }  
+        return {
+            ...state,
+            brewedAfterValue: action.brewedAfterValue
+        }
     }
     return state;
-} 
+}
 
 export const defaultBrewedAfterValue = {
     type: "edit-brewed-after",

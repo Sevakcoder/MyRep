@@ -1,4 +1,4 @@
-export const filterKeyReducer = (state={},action: any) => {
+export const filterKeyReducer = (state = {}, action: any) => {
     if (action.type === 'edit-filter-key') {
         return {
             ...state,

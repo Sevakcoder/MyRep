@@ -1,4 +1,4 @@
-export const brewedBeforeReducer = (state={},action: any) => {
+export const brewedBeforeReducer = (state = {}, action: any) => {
     if (action.type === 'edit-brewed-before') {
         return {
             ...state,
@@ -6,7 +6,7 @@ export const brewedBeforeReducer = (state={},action: any) => {
         }
     }
     return state
-} 
+}
 
 export const defaultbrewedBeforeValue = {
     type: 'edit-brewed-before',

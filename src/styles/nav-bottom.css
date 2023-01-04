@@ -50,7 +50,7 @@
     margin: 0;
 }
 
-#filter-bar p span{
+#filter-bar p span {
     display: flex;
     flex-flow: row;
     flex-wrap: nowrap;

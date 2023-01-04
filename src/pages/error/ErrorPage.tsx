@@ -1,17 +1,17 @@
 import React from 'react'
 import cleanGoBackStorage from "../../helpers/cleanSelectedItemInfo";
-import { useEffect } from 'react' 
+import { useEffect } from 'react'
 
 interface IErrorProps {
   hideFilterButton: Function
 }
 
-const Error = ({hideFilterButton}: IErrorProps) => {
-  
+const Error = ({ hideFilterButton }: IErrorProps) => {
+
   cleanGoBackStorage();
   useEffect(() => {
     hideFilterButton();
-  },[])
+  }, [])
 
   return (
     <div id='display'>

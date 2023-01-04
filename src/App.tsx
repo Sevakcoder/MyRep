@@ -20,19 +20,20 @@ import getNumberOfProuductsInCart from './helpers/getNumberOfProuductsInCart';
 
 
 function App() {
-  
+
   const [numberOfProductsInCart, setNumberOfProductsInCart] = useState(getNumberOfProuductsInCart())
-  const handleNumberOfProductsInCart = (numberOfProducts:number): void => {
-    setNumberOfProductsInCart(numberOfProducts)
+  const handleNumberOfProductsInCart = (): void => {
+    // setNumberOfProductsInCart(numberOfProducts)
+    setNumberOfProductsInCart(getNumberOfProuductsInCart())
   }
-  const [filterButtonStyle,setFilterButtonStyle] = useState<string>("none")
-  const [displayFilterStyle,setDisplayFilterStyle] = useState('none');
-  const [hideFilterStyle,setHideFilterStyle] = useState('flex');
-  const [filterStyle,setFilterStyle] = useState('flex');
+  const [filterButtonStyle, setFilterButtonStyle] = useState<string>("none")
+  const [displayFilterStyle, setDisplayFilterStyle] = useState('none');
+  const [hideFilterStyle, setHideFilterStyle] = useState('flex');
+  const [filterStyle, setFilterStyle] = useState('flex');
   const hideFilterButton = (): void => {
     setFilterButtonStyle('none')
   }
-  const displayFilterButton = (): void=> {
+  const displayFilterButton = (): void => {
     setFilterButtonStyle('flex')
   }
   const hideFilter = (): void => {
@@ -48,17 +49,17 @@ function App() {
 
   return (
     <>
-    <Header numberOfProductsInCart={numberOfProductsInCart} />
-    <Nav  filterButtonStyle={filterButtonStyle} hideFilter={hideFilter} showFilter={showFilter} displayFilterStyle={displayFilterStyle} hideFilterStyle={hideFilterStyle} />
-    <Routes>
-        <Route path={`/shop/:beerCategory/shop_page=:selectedPage`} element={<ShopPage  displayFilterButton={displayFilterButton} filterStyle={filterStyle} />} />
+      <Header numberOfProductsInCart={numberOfProductsInCart} />
+      <Nav filterButtonStyle={filterButtonStyle} hideFilter={hideFilter} showFilter={showFilter} displayFilterStyle={displayFilterStyle} hideFilterStyle={hideFilterStyle} />
+      <Routes>
+        <Route path={`/shop/:beerCategory/shop_page=:selectedPage`} element={<ShopPage displayFilterButton={displayFilterButton} filterStyle={filterStyle} />} />
         <Route path={`/shop/:beerCategory/single_beer/id=:itemId`} element={<SingleBeerPage handleNumberOfProductsInCart={handleNumberOfProductsInCart} hideFilterButton={hideFilterButton} />} />
         <Route path='/cart' element={<CartPage handleNumberOfProductsInCart={handleNumberOfProductsInCart} hideFilterButton={hideFilterButton} />} />
         <Route path='/' element={<HomePage />} />
         <Route path='/Connection_Error' element={<ConnectionErrorPage hideFilterButton={hideFilterButton} />} />
         <Route path='*' element={<ErrorPage hideFilterButton={hideFilterButton} />} />
-        </Routes>
-    <Footer />
+      </Routes>
+      <Footer />
     </>
   );
 }

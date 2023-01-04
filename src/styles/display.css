@@ -13,7 +13,7 @@
     padding: 4rem 2rem;
     background-color: white;
     width: 94vw;
-    
+
 }
 
 /* .item-element-forma {
@@ -43,7 +43,7 @@
     flex-flow: column;
     justify-content: space-between;
     align-items: center;
-   
+
 }
 
 .item-element:hover .item-element-image {
@@ -51,9 +51,10 @@
 }
 
 .item-element:hover {
-   position: relative;
+    position: relative;
 
 }
+
 .item-element:hover .item-element-view {
     display: flex;
 }
@@ -124,7 +125,6 @@
     color: black;
     font-family: 'Montez';
     font-size: 1.4rem;
-    font-weight:700;
+    font-weight: 700;
     letter-spacing: 0.1rem;
 }
-

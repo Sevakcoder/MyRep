@@ -20,7 +20,7 @@ interface IBeerItemValue {
     image_url: string,
     abv: number | null,
     ibu: number | null,
-    srm: number ,
+    srm: number,
     volume: {
         value: number | null,
         unit: string
@@ -29,7 +29,7 @@ interface IBeerItemValue {
 
 
 interface ICartBeerItemValue extends IBeerItemValue {
-    quantity:number
-} 
+    quantity: number
+}
 
-export type { IFilterValue,IFilterOptionValue,IBeerItemValue,ICartBeerItemValue};
+export type { IFilterValue, IFilterOptionValue, IBeerItemValue, ICartBeerItemValue };

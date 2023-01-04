@@ -1,4 +1,4 @@
-export const searchReducer = (state={},action: any) => {
+export const searchReducer = (state = {}, action: any) => {
     if (action.type === 'edit-search') {
         return {
             ...state,
@@ -18,7 +18,7 @@ export const selectSearch = (state: any) => {
     return state.filterSearch.searchValue
 }
 
-export const editSearch = (newValue: any)=> {
+export const editSearch = (newValue: any) => {
     return {
         type: 'edit-search',
         searchValue: newValue

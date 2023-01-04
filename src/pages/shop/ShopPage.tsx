@@ -19,21 +19,21 @@ interface IShopPageProps {
     filterStyle: string
 }
 
-const ShopPage = ({displayFilterButton,filterStyle}: IShopPageProps) => {
+const ShopPage = ({ displayFilterButton, filterStyle }: IShopPageProps) => {
 
     const navigate = useNavigate()
     const currantPageParams = useParams()
-    const [currantPage,setCurrantPage] = useState(Number)
+    const [currantPage, setCurrantPage] = useState(Number)
     useEffect(() => {
         setCurrantPage(Number(currantPageParams.selectedPage))
-    },[currantPageParams]);
-   
+    }, [currantPageParams]);
+
     const brewedAfterValue = `&brewed_after=${useSelector(selectBrewedAfter)}`;
     const brewedBeforeValue = `&brewed_before=${useSelector(selectBrewedBefore)}`;
     const searchValue = useSelector(selectSearch);
     const dispatch = useDispatch();
-    
-    const handleFilter = (brewedAfter: string,brewedBefore: string,searchValue: string): void => {
+
+    const handleFilter = (brewedAfter: string, brewedBefore: string, searchValue: string): void => {
         dispatch(editBrewedAfter(brewedAfter));
         dispatch(editBrewedBefore(brewedBefore));
         dispatch(editSearch(searchValue.toLowerCase()));
@@ -42,15 +42,15 @@ const ShopPage = ({displayFilterButton,filterStyle}: IShopPageProps) => {
     }
     useEffect(() => {
         displayFilterButton();
-    },[])
+    }, [])
 
     const brewedAfterRef = useRef();
     const brewedBeforeRef = useRef();
     const searchRef = useRef();
     const filterRef = {
         brewedAfterRef: brewedAfterRef,
-        brewedBeforeRef:brewedBeforeRef,
-        searchRef:searchRef,
+        brewedBeforeRef: brewedBeforeRef,
+        searchRef: searchRef,
     }
 
     const list: IBeerItemValue[] = []
@@ -64,68 +64,68 @@ const ShopPage = ({displayFilterButton,filterStyle}: IShopPageProps) => {
         case "non_filtered_beer":
             beerPage = "&page=2";
             break;
-        case "alcohol_beer": 
+        case "alcohol_beer":
             beerPage = "&page=3";
             break;
         case "non_alcohol_beer":
             beerPage = "&page=4";
             break;
         default:
-           break;
+            break;
     }
     const url = `https://api.punkapi.com/v2/beers?${beerPage}&per_page=60${brewedAfterValue}${brewedBeforeValue}`;
     useEffect(() => {
         try {
             getItemsByUrl(url).then(x => {
                 setItemsList(x)
-                })
-    
+            })
+
         } catch (error) {
             navigate('/Connection_Error')
             return
         }
-    },[url])
+    }, [url])
 
     useEffect(() => {
-        localStorage.setItem('homeBeerCategory',JSON.stringify(currantPageParams.beerCategory))
-    },[currantPageParams])
+        localStorage.setItem('homeBeerCategory', JSON.stringify(currantPageParams.beerCategory))
+    }, [currantPageParams])
 
     const filteredBySearchItemsList = itemsList.filter((item) => {
         return item.name.toLowerCase().includes(searchValue)
     })
     const itemsAmountPerPage = 15;
     const pagesAmount = Math.ceil(filteredBySearchItemsList.length / itemsAmountPerPage);
-    const start = (currantPage-1)*itemsAmountPerPage;
+    const start = (currantPage - 1) * itemsAmountPerPage;
     const end = start + itemsAmountPerPage;
-    const perPageItemsList = filteredBySearchItemsList.slice(start,end)
-    
+    const perPageItemsList = filteredBySearchItemsList.slice(start, end)
+
     const selectPage = (pageNumber: number) => {
         setCurrantPage(pageNumber)
         navigate(`/shop/${currantPageParams.beerCategory}/shop_page=${pageNumber}`)
     }
-    
-    
+
+
     checkPageUrlExists(currantPageParams);
 
-    const selectedPage:any = currantPageParams.selectedPage;
-    if (beerPage === ""){
+    const selectedPage: any = currantPageParams.selectedPage;
+    if (beerPage === "") {
         return <Navigate to={'/'} />
     }
 
-    if (!['1','2','3','4'].includes(selectedPage)) {
+    if (!['1', '2', '3', '4'].includes(selectedPage)) {
         return <Navigate to={'/'} />
     }
-    return (    
-        <>   
-            <Filter filterRef={filterRef} handleFilter={handleFilter} filterStyle={filterStyle}/> 
+    return (
+        <>
+            <Filter filterRef={filterRef} handleFilter={handleFilter} filterStyle={filterStyle} />
             <div id="display">
                 <Shop filterRef={filterRef} perPageItemsList={perPageItemsList} />
                 <div id="pagination-bar">
                     <div id="pagination-display-bar">
-                        <Pagination 
-                        pagesAmount={pagesAmount}
-                        currantPage={currantPage}
-                        selectPage={selectPage}
+                        <Pagination
+                            pagesAmount={pagesAmount}
+                            currantPage={currantPage}
+                            selectPage={selectPage}
                         />
                     </div>
                 </div>
