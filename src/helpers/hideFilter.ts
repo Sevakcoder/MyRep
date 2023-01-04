@@ -1,4 +1,4 @@
-export default function() {
+export default function () {
     const showFilterStyle: any = document.getElementById("show-filter")
     showFilterStyle.style.display = "flex"
     const hideFilterStyle: any = document.getElementById("hide-filter")
