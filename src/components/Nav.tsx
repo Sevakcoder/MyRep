@@ -8,10 +8,8 @@ import cleanGoBackStorage from '../helpers/cleanSelectedItemInfo';
 import beerType from './files/beerType';
 import getHomePage from '../helpers/getHomePage';
 import { useDispatch } from 'react-redux';
-import { editFilterKey } from '../features/filterKeySlice';
-import { editBrewedAfter } from '../features/brewedAfterSlice';
-import { editBrewedBefore } from '../features/brewedBeforeSlice';
-import { editSearch } from '../features/searchSlice';
+import { editFilterKey } from '../store/features/filterKeySlice';
+import { editFilter } from '../store/features/filterSlice';
 
 interface INavProps {
     filterButtonStyle: string,
@@ -41,9 +39,11 @@ const Nav = ({ filterButtonStyle, hideFilter, showFilter, displayFilterStyle, hi
         dispatch(editFilterKey())
         cleanGoBackStorage();
         dispatch(editFilterKey())
-        dispatch(editBrewedAfter(defaultFilter.brewedAfter))
-        dispatch(editBrewedBefore(defaultFilter.brewedBefore))
-        dispatch(editSearch(defaultFilter.searchValue))
+        dispatch(editFilter({
+            brewedAfterValue: defaultFilter.brewedAfter,
+            brewedBeforeValue: defaultFilter.brewedBefore,
+            searchValue: defaultFilter.searchValue,
+        }))
         goHome(getHomePage())
     }
     return (

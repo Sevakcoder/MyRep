@@ -10,9 +10,7 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import checkPageUrlExists from './checkPageUrlExists';
 import { IBeerItemValue } from '../../data-structures/interfaces'
 import { useDispatch, useSelector } from 'react-redux';
-import { editBrewedAfter, selectBrewedAfter } from '../../features/brewedAfterSlice';
-import { editBrewedBefore, selectBrewedBefore } from '../../features/brewedBeforeSlice';
-import { editSearch, selectSearch } from '../../features/searchSlice';
+import { editFilter,selectFilter } from '../../store/features/filterSlice';
 
 interface IShopPageProps {
     displayFilterButton: Function,
@@ -27,16 +25,19 @@ const ShopPage = ({ displayFilterButton, filterStyle }: IShopPageProps) => {
     useEffect(() => {
         setCurrantPage(Number(currantPageParams.selectedPage))
     }, [currantPageParams]);
-
-    const brewedAfterValue = `&brewed_after=${useSelector(selectBrewedAfter)}`;
-    const brewedBeforeValue = `&brewed_before=${useSelector(selectBrewedBefore)}`;
-    const searchValue = useSelector(selectSearch);
+    
+    const filterValue = useSelector(selectFilter)
+    const brewedAfterValue = `&brewed_after=${filterValue.brewedAfterValue}`;
+    const brewedBeforeValue = `&brewed_before=${filterValue.brewedBeforeValue}`;
+    const searchValue = filterValue.searchValue;
     const dispatch = useDispatch();
 
-    const handleFilter = (brewedAfter: string, brewedBefore: string, searchValue: string): void => {
-        dispatch(editBrewedAfter(brewedAfter));
-        dispatch(editBrewedBefore(brewedBefore));
-        dispatch(editSearch(searchValue.toLowerCase()));
+    const handleFilter = (brewedAfter: string, brewedBefore: string, search: string): void => {
+        dispatch(editFilter({
+            brewedAfterValue: brewedAfter,
+            brewedBeforeValue: brewedBefore,
+            searchValue: search,
+        }))
         setCurrantPage(1);
         navigate(`/shop/${currantPageParams.beerCategory}/shop_page=${1}`);
     }
