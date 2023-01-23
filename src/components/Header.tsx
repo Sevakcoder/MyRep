@@ -4,11 +4,11 @@ import '../styles/nav-middle.css';
 import '../styles/nav-bottom.css';
 import '../styles/bottom-bar.css';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectCart } from '../store/features/cartSlice';
 
-interface IHeaderProps {
-    numberOfProductsInCart: number
-}
-const Header = ({ numberOfProductsInCart }: IHeaderProps) => {
+const Header = () => {
+    const numberOfProductsInCart = useSelector(selectCart).length
     return (
         <>
             <div id="nav-bar">
@@ -28,11 +28,7 @@ const Header = ({ numberOfProductsInCart }: IHeaderProps) => {
                     </div>
                     <div className="nav-top-cart">
                         <Link to={'/cart'} >
-                            <label
-                            // onClick={() => {
-                            //     goToCart()
-                            // }}
-                            >
+                            <label>
                                 <i className="fa fa-shopping-cart"></i>
                                 <span id="cart-icon-label" ><span id="cart-icon-count">{numberOfProductsInCart}</span> item</span>
                             </label>

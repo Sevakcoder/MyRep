@@ -16,16 +16,9 @@ import ConnectionErrorPage from './pages/conectionError/ConnectionErrorPage';
 import ErrorPage from './pages/error/ErrorPage';
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import getNumberOfProuductsInCart from './helpers/getNumberOfProuductsInCart';
-
 
 function App() {
 
-  const [numberOfProductsInCart, setNumberOfProductsInCart] = useState(getNumberOfProuductsInCart())
-  const handleNumberOfProductsInCart = (): void => {
-    // setNumberOfProductsInCart(numberOfProducts)
-    setNumberOfProductsInCart(getNumberOfProuductsInCart())
-  }
   const [filterButtonStyle, setFilterButtonStyle] = useState<string>("none")
   const [displayFilterStyle, setDisplayFilterStyle] = useState('none');
   const [hideFilterStyle, setHideFilterStyle] = useState('flex');
@@ -49,12 +42,12 @@ function App() {
 
   return (
     <>
-      <Header numberOfProductsInCart={numberOfProductsInCart} />
+      <Header />
       <Nav filterButtonStyle={filterButtonStyle} hideFilter={hideFilter} showFilter={showFilter} displayFilterStyle={displayFilterStyle} hideFilterStyle={hideFilterStyle} />
       <Routes>
         <Route path={`/shop/:beerCategory/shop_page=:selectedPage`} element={<ShopPage displayFilterButton={displayFilterButton} filterStyle={filterStyle} />} />
-        <Route path={`/shop/:beerCategory/single_beer/id=:itemId`} element={<SingleBeerPage handleNumberOfProductsInCart={handleNumberOfProductsInCart} hideFilterButton={hideFilterButton} />} />
-        <Route path='/cart' element={<CartPage handleNumberOfProductsInCart={handleNumberOfProductsInCart} hideFilterButton={hideFilterButton} />} />
+        <Route path={`/shop/:beerCategory/single_beer/id=:itemId`} element={<SingleBeerPage hideFilterButton={hideFilterButton} />} />
+        <Route path='/cart' element={<CartPage hideFilterButton={hideFilterButton} />} />
         <Route path='/' element={<HomePage />} />
         <Route path='/Connection_Error' element={<ConnectionErrorPage hideFilterButton={hideFilterButton} />} />
         <Route path='*' element={<ErrorPage hideFilterButton={hideFilterButton} />} />

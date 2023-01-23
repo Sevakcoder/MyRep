@@ -1,35 +1,20 @@
 import React from 'react'
 import { useState } from 'react';
 import removeFromCart from './removeFromCart';
-import getNumberOfProuductsInCart from '../../helpers/getNumberOfProuductsInCart';
 import encreaseQTY from './encreaseQTY';
 import decreaseQTY from './decreaseQTY';
 import totalPrice from './totalPrice';
 import { ICartBeerItemValue } from '../../data-structures/interfaces';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCart } from '../../store/features/cartSlice';
 
 
-interface ICartProps { handleNumberOfProductsInCart: Function }
+export default function () {
 
-export default function ({ handleNumberOfProductsInCart }: ICartProps) {
+    const cartItems = useSelector(selectCart);
+    const dispatch = useDispatch();
 
-    const [cartItems, setCartItems] = useState(JSON.parse(localStorage.cartItemsList));
-
-    const removeItem = (item: ICartBeerItemValue) => {
-        removeFromCart(item);
-        setCartItems(JSON.parse(localStorage.cartItemsList))
-        handleNumberOfProductsInCart();
-    }
-    const encrease = (item: ICartBeerItemValue) => {
-        encreaseQTY(item);
-        setCartItems(JSON.parse(localStorage.cartItemsList))
-    }
-    const decrease = (item: ICartBeerItemValue) => {
-        decreaseQTY(item);
-        setCartItems(JSON.parse(localStorage.cartItemsList))
-    }
-
-
-    if (!getNumberOfProuductsInCart()) {
+    if (cartItems.length === 0) {
         return (
             <div id='display'>
                 <div id='cart-item-bar'>
@@ -64,7 +49,7 @@ export default function ({ handleNumberOfProductsInCart }: ICartProps) {
                                     <div id={`cart-item-quantity-div-${item.id}`} className='cart-item-quantity-div' >
                                         <button className='cart-item-quantity-decrement'
                                             onClick={() => {
-                                                decrease(item);
+                                                decreaseQTY(item, dispatch, cartItems);
                                             }} ><i className="fa fa-angle-down"></i></button>
                                         <input className='cart-item-quantity'
                                             min={1}
@@ -75,12 +60,12 @@ export default function ({ handleNumberOfProductsInCart }: ICartProps) {
                                         ></input>
                                         <button className='cart-item-quantity-encrement'
                                             onClick={() => {
-                                                encrease(item);
+                                                encreaseQTY(item, dispatch, cartItems)
                                             }} ><i className="fa fa-angle-up"></i></button>
                                     </div>
                                     <div className='cart-item-remove'
                                         onClick={() => {
-                                            removeItem(item)
+                                            removeFromCart(item, dispatch, cartItems)
                                         }}
                                     ><i className="fa fa-close"></i></div>
                                     <p className='cart-item-price' >

@@ -1,12 +1,13 @@
 import React from 'react'
 import { useState } from "react";
 import addToCart from '../../helpers/addToCart'
-import getNumberOfProuductsInCart from '../../helpers/getNumberOfProuductsInCart';
 import { IBeerItemValue } from '../../data-structures/interfaces';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCart } from '../../store/features/cartSlice';
 
-interface ISingleBeerProps { item: IBeerItemValue, handleNumberOfProductsInCart: Function }
+interface ISingleBeerProps { item: IBeerItemValue }
 
-export default function ({ item, handleNumberOfProductsInCart }: ISingleBeerProps) {
+export default function ({ item }: ISingleBeerProps) {
   const id = `item-${item.id}`;
   const volume = `${item.volume.value}${item.volume.unit}`;
   const bitterness = `bitterness ${item.ibu}`;
@@ -19,6 +20,8 @@ export default function ({ item, handleNumberOfProductsInCart }: ISingleBeerProp
   }
   const [quantity, setQuantity] = useState(1)
 
+  const dispatch = useDispatch()
+  const cartItems = useSelector(selectCart)
   return (
     <div id="display">
       <div id={id} className="selected-item">
@@ -50,8 +53,7 @@ export default function ({ item, handleNumberOfProductsInCart }: ISingleBeerProp
             <button id="btn-add-to-cart"
               onClick={() => {
                 const x = { ...item, quantity: quantity };
-                addToCart(x);
-                handleNumberOfProductsInCart();
+                addToCart(x,dispatch,cartItems);
               }}
             >ADD TO CART</button>
             <button id="btn-wish">WISH</button>
